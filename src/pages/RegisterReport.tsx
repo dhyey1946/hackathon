@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMapMarkerAlt, FaCamera, FaArrowLeft, FaExclamationTriangle } from "react-icons/fa";
+import InteractiveLocationPicker from "../components/InteractiveLocationPicker";
 
 const RegisterReport: React.FC = () => {
     const navigate = useNavigate();
@@ -127,13 +128,13 @@ const RegisterReport: React.FC = () => {
                 <div className="bg-white rounded-3xl shadow-xl p-8">
                     <form onSubmit={handleSubmit} className="space-y-8">
                         {/* Location Section */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <div className="space-y-6">
-                                <h3 className="text-2xl font-semibold text-gray-800 flex items-center">
-                                    <FaMapMarkerAlt className="mr-3 text-green-600" />
-                                    Location Details
-                                </h3>
+                        <div className="space-y-8">
+                            <h3 className="text-2xl font-semibold text-gray-800 flex items-center">
+                                <FaMapMarkerAlt className="mr-3 text-green-600" />
+                                Location Details
+                            </h3>
 
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                                 <div className="space-y-4">
                                     <div className="flex space-x-4">
                                         <div className="flex-1">
@@ -179,12 +180,26 @@ const RegisterReport: React.FC = () => {
                                         </p>
                                     )}
                                 </div>
+
+                                {/* Interactive Map */}
+                                <div className="space-y-4">
+                                    <h4 className="text-lg font-medium text-gray-800">Or select location on map:</h4>
+                                    <InteractiveLocationPicker
+                                        latitude={formData.latitude}
+                                        longitude={formData.longitude}
+                                        onLocationChange={(lat, lng) => {
+                                            setFormData({ ...formData, latitude: lat, longitude: lng });
+                                        }}
+                                    />
+                                </div>
                             </div>
+                        </div>
 
-                            {/* Incident Details */}
-                            <div className="space-y-6">
-                                <h3 className="text-2xl font-semibold text-gray-800">Incident Details</h3>
+                        {/* Incident Details */}
+                        <div className="space-y-6">
+                            <h3 className="text-2xl font-semibold text-gray-800">Incident Details</h3>
 
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                 <div>
                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                                         Incident Type
